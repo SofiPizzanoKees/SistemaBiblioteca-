@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo usuario - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}">Libros</a>
+        <a th:href="@{/admin/usuarios}" class="activo">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Nuevo usuario</h2>
+        <form th:action="@{/admin/usuarios}" method="post">
+            <label>Tipo de usuario</label>
+            <select name="tipoUsuario" required>
+                <option value="ALUMNO">Alumno (2 préstamos, 15 días)</option>
+                <option value="PROFESOR">Profesor (3 préstamos, 30 días)</option>
+                <option value="BIBLIOTECARIO">Bibliotecario (admin)</option>
+            </select>
+
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+
+            <label>Apellido</label>
+            <input type="text" name="apellido" required>
+
+            <label>DNI (se usa para iniciar sesión)</label>
+            <input type="text" name="dni" required>
+
+            <label>Contraseña</label>
+            <input type="password" name="contrasenia" required>
+
+            <label>Email</label>
+            <input type="email" name="email">
+
+            <label>Teléfono</label>
+            <input type="text" name="telefono">
+
+            <label>Materia que dicta / Carrera que cursa</label>
+            <input type="text" name="materia">
+
+            <button type="submit">Guardar usuario</button>
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+        </form>
+    </div>
+</main>
+</body>
+</html>

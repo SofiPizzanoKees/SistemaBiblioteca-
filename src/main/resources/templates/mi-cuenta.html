@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi cuenta - Biblioteca del Instituto</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto</span>
+    <div>
+        <a th:href="@{/catalogo}">Catálogo</a>
+        <a th:href="@{/mi-cuenta}">Mi cuenta</a>
+        <a th:href="@{/logout}">Salir</a>
+    </div>
+</header>
+<main>
+    <div class="card">
+        <h2 th:text="'Hola, ' + ${usuario.nombre} + ' ' + ${usuario.apellido}"></h2>
+        <p th:text="'Límite de préstamos: ' + ${usuario.maxPrestamos} + ' | Días de devolución: ' + ${usuario.diasDevolucion}"></p>
+        <p th:if="${usuario.bloqueado}" class="error">Tenés una sanción activa: no podés pedir nuevos préstamos hasta resolverla con el bibliotecario.</p>
+    </div>
+
+    <div class="card">
+        <h3>Mis préstamos activos</h3>
+        <table>
+            <tr><th>Libro</th><th>Fecha préstamo</th><th>Debe devolverse antes de</th><th>Estado</th></tr>
+            <tr th:each="p : ${prestamosActivos}">
+                <td th:text="${p.ejemplar.libro.titulo}"></td>
+                <td th:text="${p.fechaPrestamo}"></td>
+                <td th:text="${p.fechaDevolucionEsperada}"></td>
+                <td>
+                    <span th:if="${p.estaVencido()}" class="tag vencido">Vencido</span>
+                    <span th:unless="${p.estaVencido()}" class="tag disponible">En término</span>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(prestamosActivos)}">No tenés préstamos activos.</p>
+    </div>
+
+    <div class="card">
+        <h3>Mis reservas</h3>
+        <table>
+            <tr><th>Libro</th><th>Estado</th><th>Retirar antes de</th><th></th></tr>
+            <tr th:each="r : ${reservas}">
+                <td th:text="${r.libro.titulo}"></td>
+                <td th:text="${r.estado}"></td>
+                <td th:text="${r.fechaLimiteRetiro} ?: '-'"></td>
+                <td>
+                    <form th:action="@{/mi-cuenta/reservas/{id}/cancelar(id=${r.id})}" method="post">
+                        <button type="submit" class="peligro">Cancelar</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(reservas)}">No tenés reservas activas.</p>
+    </div>
+
+    <div class="card">
+        <h3>Notificaciones</h3>
+        <table>
+            <tr><th>Mensaje</th><th>Fecha</th><th></th></tr>
+            <tr th:each="n : ${notificaciones}">
+                <td th:text="${n.mensaje}"></td>
+                <td th:text="${n.fecha}"></td>
+                <td>
+                    <form th:if="${!n.leida}" th:action="@{/mi-cuenta/notificaciones/{id}/leer(id=${n.id})}" method="post">
+                        <button type="submit" class="secundario">Marcar leída</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(notificaciones)}">No tenés notificaciones.</p>
+    </div>
+
+    <div class="card">
+        <h3>Historial de préstamos devueltos</h3>
+        <table>
+            <tr><th>Libro</th><th>Fecha préstamo</th><th>Fecha devolución</th></tr>
+            <tr th:each="p : ${historial}">
+                <td th:text="${p.ejemplar.libro.titulo}"></td>
+                <td th:text="${p.fechaPrestamo}"></td>
+                <td th:text="${p.fechaDevolucionReal}"></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(historial)}">Todavía no tenés préstamos devueltos.</p>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+* { box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f3ee;
+    color: #2b2b28;
+    margin: 0;
+}
+header.topbar {
+    background: #2b3a42;
+    color: #fff;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header.topbar a { color: #fff; text-decoration: none; margin-left: 18px; }
+header.topbar .marca { font-weight: 700; font-size: 18px; }
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+}
+.login-box {
+    max-width: 360px;
+    margin: 80px auto;
+}
+h1, h2, h3 { color: #2b3a42; }
+label { display: block; margin-top: 12px; font-size: 14px; font-weight: 600; }
+input, select {
+    width: 100%;
+    padding: 9px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+button, .btn {
+    background: #c17f0a;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 16px;
+    display: inline-block;
+    text-decoration: none;
+}
+button.secundario, .btn.secundario { background: #6b7d87; }
+button.peligro, .btn.peligro { background: #b23b3b; }
+.error { color: #b23b3b; margin-top: 10px; font-size: 14px; }
+.ok { color: #2f7a3d; margin-top: 10px; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e4e2da; font-size: 14px; }
+th { background: #eee9dd; }
+.tag {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.tag.disponible { background: #d9f0dc; color: #256b32; }
+.tag.prestado { background: #fbe6c8; color: #8a5a06; }
+.tag.vencido { background: #f6d3d3; color: #a12f2f; }
+.tag.reservado { background: #dfe6ee; color: #33506b; }
+nav.tabs { margin-bottom: 16px; }
+nav.tabs a {
+    display: inline-block;
+    padding: 8px 14px;
+    margin-right: 6px;
+    background: #eee9dd;
+    border-radius: 6px 6px 0 0;
+    text-decoration: none;
+    color: #2b3a42;
+    font-size: 14px;
+}
+nav.tabs a.activo { background: #c17f0a; color: #fff; }

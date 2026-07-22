@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vencidos y sanciones - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}" class="activo">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Préstamos vencidos</h2>
+        <table>
+            <tr><th>Usuario</th><th>Libro</th><th>Debía devolverse</th></tr>
+            <tr th:each="p : ${prestamos}">
+                <td th:text="${p.usuario.nombre + ' ' + p.usuario.apellido}"></td>
+                <td th:text="${p.ejemplar.libro.titulo}"></td>
+                <td th:text="${p.fechaDevolucionEsperada}"></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(prestamos)}">No hay préstamos vencidos.</p>
+    </div>
+
+    <div class="card">
+        <h2>Sanciones activas (usuarios bloqueados)</h2>
+        <table>
+            <tr><th>Usuario</th><th>Libro</th><th>Tipo</th><th>Desde</th><th></th></tr>
+            <tr th:each="s : ${sanciones}">
+                <td th:text="${s.prestamo.usuario.nombre + ' ' + s.prestamo.usuario.apellido}"></td>
+                <td th:text="${s.prestamo.ejemplar.libro.titulo}"></td>
+                <td th:text="${s.tipo}"></td>
+                <td th:text="${s.fechaInicio}"></td>
+                <td>
+                    <form th:action="@{/admin/sanciones/{id}/resolver(id=${s.id})}" method="post">
+                        <button type="submit">Marcar resuelta (ya repuso/reparó)</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(sanciones)}">No hay sanciones activas.</p>
+    </div>
+</main>
+</body>
+</html>
