@@ -27,7 +27,7 @@ CRUD (Alta, Baja Lógica, Modificación) de:
 - Usuarios.
 
 Gestión de préstamos:
-Registrar préstamos y devoluciones.
+- Registrar préstamos y devoluciones.
 
 Consultas avanzadas:
 - Libros prestados.
@@ -53,4 +53,21 @@ Consultas avanzadas:
 
 ✅ Interfaz intuitiva adaptada a cada perfil de usuario.
 
-<img width="5638" height="3590" alt="algoritmospaint" src="https://github.com/user-attachments/assets/be76d9b3-be22-4a51-9f05-ee79b46b0b12" />
+## Modelo de entidad relación
+
+<img width="1742" height="1072" alt="algortimosnuevo drawio" src="https://github.com/user-attachments/assets/70bf9a0e-8a20-412b-bf8d-567605aa1453" />
+
+## Diagrama de clases
+
+<img width="3284" height="1225" alt="diagrama_clases_biblioteca_v2 html_page-0001copia" src="https://github.com/user-attachments/assets/58a9da54-9682-4091-bfb3-558200dee9e0" />
+
+## Arquitectura
+
+
+
+<img width="662" height="872" alt="Arquitectura (1)" src="https://github.com/user-attachments/assets/ea616c92-b5e5-467c-b1a9-0fdcb0950305" />
+
+
+
+
+
