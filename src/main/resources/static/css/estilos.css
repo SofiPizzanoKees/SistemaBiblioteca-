@@ -14,6 +14,7 @@ header.topbar {
     align-items: center;
 }
 header.topbar a { color: #fff; text-decoration: none; margin-left: 18px; }
+header.topbar a.marca { margin-left: 0; }
 header.topbar .marca { font-weight: 700; font-size: 18px; }
 main {
     max-width: 1000px;

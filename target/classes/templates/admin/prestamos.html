@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Préstamos activos - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}" class="activo">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Préstamos activos</h2>
+        <table>
+            <tr><th>Usuario</th><th>Libro</th><th>Ejemplar</th><th>Vence</th><th>Estado</th><th>Devolución</th></tr>
+            <tr th:each="p : ${prestamos}">
+                <td th:text="${p.usuario.nombre + ' ' + p.usuario.apellido}"></td>
+                <td th:text="${p.ejemplar.libro.titulo}"></td>
+                <td th:text="${p.ejemplar.numeroInventario}"></td>
+                <td th:text="${p.fechaDevolucionEsperada}"></td>
+                <td>
+                    <span th:if="${p.estaVencido()}" class="tag vencido">Vencido</span>
+                    <span th:unless="${p.estaVencido()}" class="tag disponible">En término</span>
+                </td>
+                <td>
+                    <form th:action="@{/admin/prestamos/{id}/devolucion(id=${p.id})}" method="post">
+                        <label style="display:inline-block; font-weight:400;">
+                            <input type="checkbox" name="ejemplarDaniado" value="true" style="width:auto; display:inline-block">
+                            Volvió dañado
+                        </label>
+                        <button type="submit">Registrar devolución</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(prestamos)}">No hay préstamos activos.</p>
+    </div>
+</main>
+</body>
+</html>

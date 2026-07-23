@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}" class="activo">Dashboard</a>
+        <a th:href="@{/admin/libros}">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Resumen</h2>
+        <p><strong>Préstamos activos:</strong> <span th:text="${cantidadActivos}"></span></p>
+        <p><strong>Préstamos vencidos:</strong> <span th:text="${cantidadVencidos}"></span></p>
+    </div>
+</main>
+</body>
+</html>

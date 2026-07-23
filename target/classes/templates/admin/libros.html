@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Libros - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}" class="activo">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Libros</h2>
+        <a class="btn" th:href="@{/admin/libros/nuevo}">+ Nuevo libro</a>
+
+        <table>
+            <tr><th>Título</th><th>ISBN</th><th>Categoría</th><th>Ejemplares disponibles</th><th></th></tr>
+            <tr th:each="libro : ${libros}">
+                <td th:text="${libro.titulo}"></td>
+                <td th:text="${libro.isbn}"></td>
+                <td th:text="${libro.categoria != null ? libro.categoria.nombre : '-'}"></td>
+                <td th:text="${libro.ejemplares.size()}"></td>
+                <td>
+                    <a class="btn secundario" th:href="@{/admin/libros/{id}/ejemplares(id=${libro.id})}">Ejemplares</a>
+                    <form th:action="@{/admin/libros/{id}/baja(id=${libro.id})}" method="post" style="display:inline">
+                        <button type="submit" class="peligro">Dar de baja</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(libros)}">No hay libros cargados.</p>
+    </div>
+</main>
+</body>
+</html>

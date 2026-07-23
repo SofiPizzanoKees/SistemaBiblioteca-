@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo libro - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}" class="activo">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Nuevo libro</h2>
+        <form th:action="@{/admin/libros}" method="post">
+            <label>Título</label>
+            <input type="text" name="titulo" required>
+
+            <label>Año</label>
+            <input type="number" name="anio">
+
+            <label>ISBN</label>
+            <input type="text" name="isbn">
+
+            <label>Idioma</label>
+            <input type="text" name="idioma">
+
+            <label>Categoría</label>
+            <select name="idCategoria">
+                <option value="">-- Ninguna --</option>
+                <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nombre}"></option>
+            </select>
+
+            <label>Editorial</label>
+            <select name="idEditorial">
+                <option value="">-- Ninguna --</option>
+                <option th:each="e : ${editoriales}" th:value="${e.id}" th:text="${e.nombre}"></option>
+            </select>
+
+            <label>Autores (podés elegir varios)</label>
+            <select name="idsAutores" multiple size="5">
+                <option th:each="a : ${autores}" th:value="${a.id}" th:text="${a.nombre + ' ' + a.apellido}"></option>
+            </select>
+
+            <button type="submit">Guardar libro</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>¿Falta el autor, la editorial o la categoría? Agregalos rápido acá:</h3>
+
+        <form th:action="@{/admin/libros/autores}" method="post" style="margin-bottom:18px">
+            <label>Nuevo autor: nombre</label>
+            <input type="text" name="nombre" required>
+            <label>Apellido</label>
+            <input type="text" name="apellido" required>
+            <label>Nacionalidad</label>
+            <input type="text" name="nacionalidad">
+            <button type="submit" class="secundario">Agregar autor</button>
+        </form>
+
+        <form th:action="@{/admin/libros/editoriales}" method="post" style="margin-bottom:18px">
+            <label>Nueva editorial: nombre</label>
+            <input type="text" name="nombre" required>
+            <label>País</label>
+            <input type="text" name="pais">
+            <label>Contacto</label>
+            <input type="text" name="contacto">
+            <button type="submit" class="secundario">Agregar editorial</button>
+        </form>
+
+        <form th:action="@{/admin/libros/categorias}" method="post">
+            <label>Nueva categoría: nombre</label>
+            <input type="text" name="nombre" required>
+            <button type="submit" class="secundario">Agregar categoría</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas - Panel Bibliotecario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}" class="activo">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2>Libros más prestados</h2>
+        <table>
+            <tr><th>Título</th><th>Cantidad de préstamos</th></tr>
+            <tr th:each="fila : ${librosMasPrestados}">
+                <td th:text="${fila[0]}"></td>
+                <td th:text="${fila[1]}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Usuarios con más préstamos</h2>
+        <table>
+            <tr><th>Usuario</th><th>Cantidad de préstamos</th></tr>
+            <tr th:each="fila : ${usuariosConMasPrestamos}">
+                <td th:text="${fila[0].nombre + ' ' + fila[0].apellido}"></td>
+                <td th:text="${fila[1]}"></td>
+            </tr>
+        </table>
+    </div>
+</main>
+</body>
+</html>

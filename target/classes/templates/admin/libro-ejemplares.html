@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Ejemplares de ' + ${libro.titulo}">Ejemplares</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto - Panel Bibliotecario</span>
+    <div><a th:href="@{/logout}">Salir</a></div>
+</header>
+<main>
+    <nav class="tabs">
+        <a th:href="@{/admin}">Dashboard</a>
+        <a th:href="@{/admin/libros}" class="activo">Libros</a>
+        <a th:href="@{/admin/usuarios}">Usuarios</a>
+        <a th:href="@{/admin/prestamos}">Préstamos</a>
+        <a th:href="@{/admin/vencidos}">Vencidos y sanciones</a>
+        <a th:href="@{/admin/estadisticas}">Estadísticas</a>
+    </nav>
+
+    <div class="card">
+        <h2 th:text="'Ejemplares de: ' + ${libro.titulo}"></h2>
+
+        <form th:action="@{/admin/libros/{id}/ejemplares(id=${libro.id})}" method="post">
+            <label>Número de inventario del nuevo ejemplar</label>
+            <input type="text" name="numeroInventario" required>
+            <button type="submit">Agregar ejemplar</button>
+        </form>
+
+        <table style="margin-top:20px">
+            <tr><th>N° inventario</th><th>Estado</th><th></th></tr>
+            <tr th:each="e : ${libro.ejemplares}">
+                <td th:text="${e.numeroInventario}"></td>
+                <td>
+                    <span th:switch="${e.estado.name()}">
+                        <span th:case="'DISPONIBLE'" class="tag disponible">Disponible</span>
+                        <span th:case="'PRESTADO'" class="tag prestado">Prestado</span>
+                        <span th:case="'RESERVADO'" class="tag reservado">Reservado</span>
+                        <span th:case="'DANIADO'" class="tag vencido">Dañado</span>
+                        <span th:case="*" class="tag">De baja</span>
+                    </span>
+                </td>
+                <td>
+                    <form th:if="${e.estado.name() == 'DANIADO'}"
+                          th:action="@{/admin/libros/ejemplares/{id}/reparar(id=${e.id})}" method="post" style="display:inline">
+                        <button type="submit" class="secundario">Marcar reparado</button>
+                    </form>
+                    <form th:if="${e.estado.name() == 'DANIADO'}"
+                          th:action="@{/admin/libros/ejemplares/{id}/baja(id=${e.id})}" method="post" style="display:inline">
+                        <button type="submit" class="peligro">Dar de baja</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo - Biblioteca del Instituto</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="topbar">
+    <span class="marca">Biblioteca del Instituto</span>
+    <div>
+        <a th:href="@{/catalogo}">Catálogo</a>
+        <a th:href="@{/mi-cuenta}">Mi cuenta</a>
+        <a th:href="@{/logout}">Salir</a>
+    </div>
+</header>
+<main>
+    <div class="card">
+        <h2>Buscar libros</h2>
+        <form th:action="@{/catalogo}" method="get">
+            <label>Título</label>
+            <input type="text" name="titulo" placeholder="Ej: Cien años de soledad">
+
+            <label>Categoría</label>
+            <select name="categoria">
+                <option value="">-- Todas --</option>
+                <option th:each="c : ${categorias}" th:value="${c.nombre}" th:text="${c.nombre}"></option>
+            </select>
+
+            <label>Autor (nombre y apellido)</label>
+            <input type="text" name="autorNombre" placeholder="Nombre">
+            <input type="text" name="autorApellido" placeholder="Apellido" style="margin-top:8px">
+
+            <label style="margin-top:14px">
+                <input type="checkbox" name="soloDisponibles" value="true" style="width:auto; display:inline-block">
+                Solo libros disponibles
+            </label>
+
+            <button type="submit">Buscar</button>
+            <a class="btn secundario" th:href="@{/catalogo}">Limpiar</a>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Resultados</h2>
+        <table>
+            <tr><th>Título</th><th>Categoría</th><th>Autores</th><th>Disponibilidad</th><th></th></tr>
+            <tr th:each="libro : ${libros}">
+                <td th:text="${libro.titulo}"></td>
+                <td th:text="${libro.categoria != null ? libro.categoria.nombre : '-'}"></td>
+                <td th:text="${#strings.setJoin(libro.autores.![nombre + ' ' + apellido], ', ')}"></td>
+                <td>
+                    <span th:if="${libro.estaDisponible()}" class="tag disponible">Disponible</span>
+                    <span th:unless="${libro.estaDisponible()}" class="tag prestado">Sin ejemplares</span>
+                </td>
+                <td><a class="btn" th:href="@{/catalogo/{id}(id=${libro.id})}">Ver</a></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(libros)}">No se encontraron libros con esos criterios.</p>
+    </div>
+</main>
+</body>
+</html>
