@@ -4,6 +4,9 @@ body {
     background: #f4f3ee;
     color: #2b2b28;
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 header.topbar {
     background: #2b3a42;
@@ -18,8 +21,10 @@ header.topbar a.marca { margin-left: 0; }
 header.topbar .marca { font-weight: 700; font-size: 18px; }
 main {
     max-width: 1000px;
+    width: 100%;
     margin: 30px auto;
     padding: 0 20px;
+    flex: 1 0 auto;
 }
 .card {
     background: #fff;
@@ -53,6 +58,7 @@ button, .btn {
     margin-top: 16px;
     display: inline-block;
     text-decoration: none;
+    width: 100%;
 }
 button.secundario, .btn.secundario { background: #6b7d87; }
 button.peligro, .btn.peligro { background: #b23b3b; }
@@ -85,6 +91,58 @@ nav.tabs a {
 }
 nav.tabs a.activo { background: #c17f0a; color: #fff; }
 
+/* ===================== Desplegable de notificaciones (header) ===================== */
+.dropdown-notif {
+    position: relative;
+    display: inline-block;
+    margin-left: 18px;
+}
+.dropdown-notif .notif-toggle {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    position: relative;
+    cursor: pointer;
+}
+.dropdown-notif .badge-notif {
+    background: #b23b3b;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 6px;
+    margin-left: 4px;
+}
+.dropdown-notif .menu-notif {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    background: #fff;
+    color: #2b2b28;
+    min-width: 320px;
+    max-width: 380px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    z-index: 100;
+}
+.dropdown-notif .menu-notif.abierto { display: block; }
+.dropdown-notif .item-notif { border-bottom: 1px solid #eee9dd; }
+.dropdown-notif .item-notif:last-child { border-bottom: none; }
+.dropdown-notif .item-notif a {
+    display: block;
+    padding: 10px 14px;
+    color: #2b2b28;
+    text-decoration: none;
+    font-size: 13.5px;
+}
+.dropdown-notif .item-notif a:hover { background: #f4f3ee; }
+.dropdown-notif .item-notif.no-leida a { background: #fdf3e2; font-weight: 600; }
+.dropdown-notif .item-notif small { display: block; color: #8a8a83; font-weight: 400; margin-top: 3px; }
+.dropdown-notif .sin-notif { padding: 14px; margin: 0; font-size: 13.5px; color: #6b6b63; }
+
 /* ===================== Footer institucional (login, catalogo, etc) ===================== */
 footer.footer-institucional {
     background: #2b3a42;
@@ -96,7 +154,8 @@ footer.footer-institucional {
     flex-wrap: wrap;
     gap: 16px;
     font-size: 13.5px;
-    margin-top: 20px;
+    flex-shrink: 0;
+    width: 100%;
 }
 footer.footer-institucional .logo-instituto img {
     height: 48px;
@@ -185,6 +244,8 @@ footer.footer-institucional .direccion {
     max-width: 340px;
 }
 .caja-form h1 { color: #2b3a42; margin-bottom: 4px; }
+.caja-form .tarjeta-logo { margin-bottom: 18px; }
+.caja-form .tarjeta-logo img { display: block; max-width: 220px; width: 100%; height: auto; }
 .caja-form p.subtitulo { color: #6b6b63; margin-top: 0; margin-bottom: 24px; }
 
 @media (max-width: 800px) {

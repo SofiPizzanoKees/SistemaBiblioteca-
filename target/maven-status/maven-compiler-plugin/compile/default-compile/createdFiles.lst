@@ -4,6 +4,7 @@ com\biblioteca\model\Sancion.class
 com\biblioteca\model\Ejemplar.class
 com\biblioteca\service\PrestamoService.class
 com\biblioteca\BibliotecaApplication.class
+com\biblioteca\config\NotificacionesModelAdvice.class
 com\biblioteca\controller\AdminLibroController.class
 com\biblioteca\controller\AdminController.class
 com\biblioteca\model\Categoria.class

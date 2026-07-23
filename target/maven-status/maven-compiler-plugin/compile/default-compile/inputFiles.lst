@@ -1,6 +1,7 @@
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\BibliotecaApplication.java
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\config\AuthInterceptor.java
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\config\DataInitializer.java
+D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\config\NotificacionesModelAdvice.java
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\config\WebConfig.java
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\controller\AdminController.java
 D:\Sofía PK\Downloads\SistemaBiblioteca\src\main\java\com\biblioteca\controller\AdminLibroController.java
