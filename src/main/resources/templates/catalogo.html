@@ -58,6 +58,28 @@
         </table>
         <p th:if="${#lists.isEmpty(libros)}">No se encontraron libros con esos criterios.</p>
     </div>
-</main>
+
+<footer class="footer-institucional">
+        <div class="logo-instituto">
+            <img th:src="@{/images/logo_juan23_white-1.png}" alt="Instituto Juan XXIII">
+        </div>
+        <div class="contacto-instituto">
+            <a class="contacto-mail" href="mailto:secretaria@juan23.edu.ar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6h18v12H3V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                secretaria@juan23.edu.ar
+            </a>
+            <div class="direccion">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+                <span>Vieytes 286, B8000 Bahía Blanca, Provincia de Buenos Aires, Argentina</span>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
