@@ -100,7 +100,6 @@ nav.tabs a.activo { background: #c17f0a; color: #fff; }
 .dropdown-notif .notif-toggle {
     color: #fff;
     text-decoration: none;
-    font-size: 14px;
     position: relative;
     cursor: pointer;
 }
@@ -142,6 +141,19 @@ nav.tabs a.activo { background: #c17f0a; color: #fff; }
 .dropdown-notif .item-notif.no-leida a { background: #fdf3e2; font-weight: 600; }
 .dropdown-notif .item-notif small { display: block; color: #8a8a83; font-weight: 400; margin-top: 3px; }
 .dropdown-notif .sin-notif { padding: 14px; margin: 0; font-size: 13.5px; color: #6b6b63; }
+.dropdown-notif .borrar-historial {
+    border-top: 1px solid #eee9dd;
+    text-align: center;
+}
+.dropdown-notif .borrar-historial a {
+    display: block;
+    padding: 10px 14px;
+    color: #b23b3b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+.dropdown-notif .borrar-historial a:hover { background: #f4f3ee; }
 
 /* ===================== Footer institucional (login, catalogo, etc) ===================== */
 footer.footer-institucional {

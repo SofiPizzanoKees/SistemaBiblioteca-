@@ -22,6 +22,9 @@
                     </a>
                 </div>
                 <p th:if="${#lists.isEmpty(notificacionesDropdown)}" class="sin-notif">Sin notificaciones</p>
+                <div class="borrar-historial" th:unless="${#lists.isEmpty(notificacionesDropdown)}">
+                    <a href="#" onclick="borrarHistorial(event)">Borrar historial</a>
+                </div>
             </div>
         </span>
         <a th:href="@{/mi-cuenta}">Mi cuenta</a>
@@ -35,6 +38,11 @@
     }
     function marcarLeida(id) {
         fetch('/mi-cuenta/notificaciones/' + id + '/leer', { method: 'POST' })
+            .then(() => location.reload());
+    }
+    function borrarHistorial(e) {
+        e.preventDefault();
+        fetch('/mi-cuenta/notificaciones/borrar', { method: 'POST' })
             .then(() => location.reload());
     }
     document.addEventListener('click', function (e) {

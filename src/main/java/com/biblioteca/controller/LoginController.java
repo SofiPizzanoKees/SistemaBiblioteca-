@@ -52,4 +52,16 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
+
+    // Pantallas de "recuperar contraseña": son solo de exhibicion, no estan
+    // conectadas a ningun service ni envian correos ni validan nada real.
+    @GetMapping("/recuperar-contrasenia")
+    public String mostrarRecuperarCorreo() {
+        return "recuperar-correo";
+    }
+
+    @GetMapping("/recuperar-contrasenia/codigo")
+    public String mostrarRecuperarCodigo() {
+        return "recuperar-codigo";
+    }
 }

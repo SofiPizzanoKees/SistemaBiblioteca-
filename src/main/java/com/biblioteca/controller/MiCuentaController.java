@@ -5,6 +5,7 @@ import com.biblioteca.service.NotificacionService;
 import com.biblioteca.service.PrestamoService;
 import com.biblioteca.service.ReservaService;
 import com.biblioteca.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,5 +55,18 @@ public class MiCuentaController {
     public String marcarLeida(@PathVariable Long id) {
         notificacionService.marcarLeida(id);
         return "redirect:/mi-cuenta";
+    }
+
+    // RF17: borrar todo el historial de notificaciones propio.
+    // El boton "Borrar historial" aparece en el header de TODAS las paginas
+    // (catalogo, libro-detalle, mi-cuenta), asi que redirigimos a la misma
+    // pagina desde donde se llamo en vez de siempre a /mi-cuenta.
+    @PostMapping("/notificaciones/borrar")
+    public String borrarHistorial(HttpSession session, HttpServletRequest request) {
+        Usuario usuario = usuarioService.usuarioDeSesion(session);
+        notificacionService.borrarHistorial(usuario);
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/mi-cuenta");
     }
 }

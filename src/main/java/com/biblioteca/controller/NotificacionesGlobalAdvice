@@ -1,0 +1,47 @@
+package com.biblioteca.controller;
+
+import com.biblioteca.dto.NotificacionDTO;
+import com.biblioteca.model.Usuario;
+import com.biblioteca.service.NotificacionService;
+import com.biblioteca.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.Collections;
+
+/**
+ * Se ejecuta antes de renderizar cualquier vista y agrega al Model:
+ *  - notificacionesDropdown : las ultimas notificaciones del usuario logueado
+ *  - notificacionesNoLeidas : cantidad para el badge del header
+ *
+ * Si no hay usuario logueado (ej. la pantalla de /login), no agrega nada
+ * y la vista ya contempla eso con th:if="${#lists.isEmpty(...)}".
+ */
+@ControllerAdvice
+public class NotificacionesGlobalAdvice {
+
+    private final UsuarioService usuarioService;
+    private final NotificacionService notificacionService;
+
+    public NotificacionesGlobalAdvice(UsuarioService usuarioService, NotificacionService notificacionService) {
+        this.usuarioService = usuarioService;
+        this.notificacionService = notificacionService;
+    }
+
+    @ModelAttribute
+    public void agregarNotificacionesAlModel(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("usuarioId");
+
+        if (idUsuario == null) {
+            model.addAttribute("notificacionesDropdown", Collections.emptyList());
+            model.addAttribute("notificacionesNoLeidas", 0L);
+            return;
+        }
+
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        model.addAttribute("notificacionesDropdown", notificacionService.listarParaDropdown(usuario));
+        model.addAttribute("notificacionesNoLeidas", notificacionService.contarNoLeidas(usuario));
+    }
+}

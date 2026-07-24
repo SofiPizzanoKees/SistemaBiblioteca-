@@ -4,6 +4,7 @@ com\biblioteca\model\Sancion.class
 com\biblioteca\model\Ejemplar.class
 com\biblioteca\service\PrestamoService.class
 com\biblioteca\BibliotecaApplication.class
+com\biblioteca\util\FechaUtil.class
 com\biblioteca\config\NotificacionesModelAdvice.class
 com\biblioteca\controller\AdminLibroController.class
 com\biblioteca\controller\AdminController.class
@@ -15,6 +16,7 @@ com\biblioteca\repository\SancionRepository.class
 com\biblioteca\model\Notificacion.class
 com\biblioteca\model\Libro.class
 com\biblioteca\repository\CategoriaRepository.class
+com\biblioteca\dto\NotificacionDTO.class
 com\biblioteca\controller\AdminUsuarioController.class
 com\biblioteca\model\enums\TipoSancion.class
 com\biblioteca\controller\MiCuentaController.class

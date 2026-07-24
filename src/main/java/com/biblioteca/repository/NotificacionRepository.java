@@ -12,4 +12,10 @@ public interface NotificacionRepository extends JpaRepository<Notificacion, Long
     List<Notificacion> findByUsuarioOrderByFechaDesc(Usuario usuario);
 
     long countByUsuarioAndLeidaFalse(Usuario usuario);
+
+    // NUEVO: para el desplegable del header (las ultimas 8, ya ordenadas)
+    List<Notificacion> findTop8ByUsuarioOrderByFechaDesc(Usuario usuario);
+
+    // NUEVO: para el boton "Borrar historial"
+    void deleteByUsuario(Usuario usuario);
 }
