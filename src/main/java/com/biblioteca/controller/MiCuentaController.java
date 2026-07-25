@@ -31,17 +31,24 @@ public class MiCuentaController {
         this.notificacionService = notificacionService;
     }
 
-    // RF13 + RF17: historial de prestamos, prestamos activos, reservas y notificaciones
+    // RF13 + RF17: prestamos activos, reservas y notificaciones
     @GetMapping
     public String miCuenta(HttpSession session, Model model) {
         Usuario usuario = usuarioService.usuarioDeSesion(session);
 
         model.addAttribute("usuario", usuario);
         model.addAttribute("prestamosActivos", prestamoService.activosDeUsuario(usuario));
-        model.addAttribute("historial", prestamoService.historialDeUsuario(usuario));
         model.addAttribute("reservas", reservaService.reservasActivasDeUsuario(usuario));
-        model.addAttribute("notificaciones", notificacionService.listarPorUsuario(usuario));
         return "mi-cuenta";
+    }
+
+    // RF13: historial de prestamos devueltos, ahora en su propia vista
+    @GetMapping("/historial")
+    public String historial(HttpSession session, Model model) {
+        Usuario usuario = usuarioService.usuarioDeSesion(session);
+
+        model.addAttribute("historial", prestamoService.historialDeUsuario(usuario));
+        return "historial";
     }
 
     // RF16: cancelar una reserva propia
@@ -59,7 +66,7 @@ public class MiCuentaController {
 
     // RF17: borrar todo el historial de notificaciones propio.
     // El boton "Borrar historial" aparece en el header de TODAS las paginas
-    // (catalogo, libro-detalle, mi-cuenta), asi que redirigimos a la misma
+    // (catalogo, libro-detalle, mi-cuenta, historial), asi que redirigimos a la misma
     // pagina desde donde se llamo en vez de siempre a /mi-cuenta.
     @PostMapping("/notificaciones/borrar")
     public String borrarHistorial(HttpSession session, HttpServletRequest request) {

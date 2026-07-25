@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${libro.titulo}">Libro</title>
+    <title>Historial de préstamos - Biblioteca del Instituto</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
@@ -55,31 +55,42 @@
 </script>
 <main>
     <div class="card">
-        <h2 th:text="${libro.titulo}"></h2>
-        <p><strong>ISBN:</strong> <span th:text="${libro.isbn}"></span></p>
-        <p><strong>Año:</strong> <span th:text="${libro.anio}"></span></p>
-        <p><strong>Idioma:</strong> <span th:text="${libro.idioma}"></span></p>
-        <p><strong>Categoría:</strong> <span th:text="${libro.categoria != null ? libro.categoria.nombre : '-'}"></span></p>
-        <p><strong>Editorial:</strong> <span th:text="${libro.editorial != null ? libro.editorial.nombre : '-'}"></span></p>
-        <p><strong>Autores:</strong>
-            <span th:text="${#strings.setJoin(libro.autores.![nombre + ' ' + apellido], ', ')}"></span>
-        </p>
-
-        <p>
-            <span th:if="${disponible}" class="tag disponible" th:text="'Disponible (' + ${ejemplaresDisponibles} + ' ejemplar/es)'"></span>
-            <span th:unless="${disponible}" class="tag prestado">Sin ejemplares disponibles</span>
-        </p>
-
-        <p class="error" th:if="${error}" th:text="${error}"></p>
-
-        <form th:if="${disponible}" th:action="@{/catalogo/{id}/prestamo(id=${libro.id})}" method="post">
-            <button type="submit">Solicitar préstamo</button>
-        </form>
-
-        <form th:unless="${disponible}" th:action="@{/catalogo/{id}/reserva(id=${libro.id})}" method="post">
-            <button type="submit">Reservar (me anoto en la fila de espera)</button>
-        </form>
+        <h3>Historial de préstamos devueltos</h3>
+        <table>
+            <tr><th>Libro</th><th>Fecha préstamo</th><th>Fecha devolución</th></tr>
+            <tr th:each="p : ${historial}">
+                <td th:text="${p.ejemplar.libro.titulo}"></td>
+                <td th:text="${p.fechaPrestamo}"></td>
+                <td th:text="${p.fechaDevolucionReal}"></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(historial)}">Todavía no tenés préstamos devueltos.</p>
     </div>
+
+    <a class="btn volver" th:href="@{/catalogo}">Volver</a>
 </main>
+
+
+<footer class="footer-institucional">
+    <div class="logo-instituto">
+        <img th:src="@{/images/logo_juan23_white-1.png}" alt="Instituto Juan XXIII">
+    </div>
+    <div class="contacto-instituto">
+        <a class="contacto-mail" href="mailto:bibliotecainstituto@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 6h18v12H3V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            bibliotecainstituto@gmail.com
+        </a>
+        <div class="direccion">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <span>Vieytes 286, B8000 Bahía Blanca, Provincia de Buenos Aires, Argentina</span>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

@@ -59,9 +59,11 @@ button, .btn {
     display: inline-block;
     text-decoration: none;
     width: 100%;
+    text-align: center;
 }
 button.secundario, .btn.secundario { background: #6b7d87; }
 button.peligro, .btn.peligro { background: #b23b3b; }
+button.volver, .btn.volver {text-align: center; background: #2b3a42; }
 .error { color: #b23b3b; margin-top: 10px; font-size: 14px; }
 .ok { color: #2f7a3d; margin-top: 10px; font-size: 14px; }
 table { width: 100%; border-collapse: collapse; margin-top: 12px; }
