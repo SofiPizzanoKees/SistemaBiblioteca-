@@ -34,7 +34,7 @@ Consultas avanzadas:
 - Libros disponibles.
 - Préstamos vencidos.
 
-👤 Usuario
+👤 Usuario (Alumno y profesor)
 - Inicio de sesión.
 - Búsqueda y filtrado de libros (mínimo 2 filtros).
 - Consulta de disponibilidad en tiempo real.
@@ -43,9 +43,15 @@ Consultas avanzadas:
 
 
 ## 🛠️ Características Técnicas
-✅ Mínimo 2 filtros para búsquedas avanzadas (ej. por autor, editorial, año, género, etc.).
+✅ Filtros
+- Por disponibilidad.
+- Por autor.
+- Libro más prestado.
+- Préstamos vencidos.
 
-✅ Mínimo 2 listados dinámicos (ej. libros más prestados, usuarios con más préstamos, préstamos vencidos, etc.).
+✅ Listados
+- Listado de préstamos vencidos.
+- Listado de libros más prestados.
 
 ✅ Arquitectura escalable preparada para futuras integraciones.
 
@@ -59,7 +65,8 @@ Consultas avanzadas:
 
 ## Diagrama de clases
 
-<img width="3284" height="1225" alt="diagrama_clases_biblioteca_v2 html_page-0001copia" src="https://github.com/user-attachments/assets/58a9da54-9682-4091-bfb3-558200dee9e0" />
+<img width="7969" height="3188" alt="diagrama_clases_v3" src="https://github.com/user-attachments/assets/6632c2b1-3825-4e02-a872-0a6bed8fbdcb" />
+
 
 ## Arquitectura
 
