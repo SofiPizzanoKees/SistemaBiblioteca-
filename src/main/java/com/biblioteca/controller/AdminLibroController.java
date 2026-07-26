@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/libros")
@@ -30,9 +31,19 @@ public class AdminLibroController {
         this.ejemplarService = ejemplarService;
     }
 
+    // RF07: consultar libros disponibles (checkbox de filtro, igual patron que /catalogo)
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("libros", libroService.listarActivos());
+    public String listar(@RequestParam(required = false) Boolean soloDisponibles, Model model) {
+        List<Libro> libros = libroService.listarActivos();
+
+        if (Boolean.TRUE.equals(soloDisponibles)) {
+            libros = libros.stream()
+                    .filter(Libro::estaDisponible)
+                    .collect(Collectors.toList());
+        }
+
+        model.addAttribute("libros", libros);
+        model.addAttribute("soloDisponibles", soloDisponibles);
         return "admin/libros";
     }
 
