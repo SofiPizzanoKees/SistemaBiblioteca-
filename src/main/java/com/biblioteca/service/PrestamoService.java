@@ -10,6 +10,7 @@ import com.biblioteca.model.enums.TipoNotificacion;
 import com.biblioteca.model.enums.TipoSancion;
 import com.biblioteca.repository.EjemplarRepository;
 import com.biblioteca.repository.PrestamoRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -101,17 +102,29 @@ public class PrestamoService {
     }
 
     /**
-     * Chequeo periodico (o manual del bibliotecario, RF09) que recorre los
-     * prestamos vencidos y genera la sancion de reposicion cuando superan
-     * los 2 meses de atraso sin devolver el ejemplar.
+     * Tarea automatica: corre todos los dias a las 00:00 y dispara la
+     * verificacion de prestamos vencidos, sin que el bibliotecario tenga
+     * que entrar a revisar la pantalla de "Vencidos y sanciones".
+     */
+    @Scheduled(cron = "0 0 0 * * *")
+    public void verificarSancionesPorAtrasoAutomatico() {
+        verificarSancionesPorAtraso();
+    }
+
+    /**
+     * Chequeo periodico (via @Scheduled) o manual del bibliotecario (RF09) que
+     * recorre los prestamos vencidos y genera la sancion de reposicion cuando
+     * superan los 2 meses de atraso sin devolver el ejemplar.
      */
     public void verificarSancionesPorAtraso() {
         for (Prestamo p : prestamoRepository.buscarVencidos()) {
             long diasAtraso = ChronoUnit.DAYS.between(p.getFechaDevolucionEsperada(), LocalDate.now());
             if (diasAtraso >= DIAS_LIMITE_PARA_REPOSICION && !sancionService.estaBloqueadoPorSancion(p.getUsuario())) {
                 sancionService.crear(p, TipoSancion.REPOSICION_POR_PERDIDA);
-            } else {
-                // aviso simple de vencimiento proximo/actual, sin llegar todavia a la sancion
+            } else if (diasAtraso == 1) {
+                // aviso simple de vencimiento, una unica vez, el primer dia que el
+                // prestamo pasa a estar vencido (evita mandar la misma notificacion
+                // todos los dias mientras el usuario no devuelve el libro)
                 notificacionService.crear(p.getUsuario(), TipoNotificacion.VENCIMIENTO_PROXIMO,
                         "Tu prestamo de \"" + p.getEjemplar().getLibro().getTitulo() + "\" esta vencido.");
             }
